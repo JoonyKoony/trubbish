@@ -20,4 +20,9 @@ class Program
             Console.WriteLine("  Argument " + i +": " + args[i]);
         }
     }
+
+    private static string[] AskUserQuestions(string filename)
+    {
+        return ["bob"];
+    }
 }
