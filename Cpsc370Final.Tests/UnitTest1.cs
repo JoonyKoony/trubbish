@@ -8,17 +8,17 @@ public class UnitTest1
     }
     
     [Theory]
-    [InlineData("Hello World", false)]
-    [InlineData(" ", false)]
-    [InlineData("Hello", true)]
-    [InlineData("im123oldinyears", false)]
-    [InlineData("Turtle", true)]
-    public void ValidInputForGettingUserAnswer(string input, bool expected)
+    [InlineData(new string[] { "Hello", "World", "Turtle", "CSharp", "Code", "Quick", "Test", "Array", "Single", "Word" }, true)] // All valid
+    [InlineData(new string[] { "Hello World", "Turtle", "CSharp", "Code", "Quick", "Test", "Array", "Single", "Word", "Valid" }, false)] // One invalid (contains space)
+    [InlineData(new string[] { "ThisIsTooLong", "Turtle", "CSharp", "Code", "Quick", "Test", "Array", "Single", "Word", "Valid" }, false)] // One invalid (too long)
+    [InlineData(new string[] { " ", "Turtle", "CSharp", "Code", "Quick", "Test", "Array", "Single", "Word", "Valid" }, false)] // One invalid (only space)
+    [InlineData(new string[] { "Hello", "World", "Turtle", "CSharp", "Code", "Quick", "Test", "Array", "Single", " " }, false)] // Last one invalid
+    public void ValidateArrayOfStrings(string[] inputArray, bool expected)
     {
         // Arrange
 
         // Act
-        bool isValid = input.Length < 10 && !input.Contains(" ");
+        bool isValid = inputArray.All(input => input.Length < 10 && !input.Contains(" "));
 
         // Assert
         Assert.Equal(expected, isValid);
