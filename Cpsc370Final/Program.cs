@@ -20,7 +20,12 @@ class Program
             Console.WriteLine("  Argument " + i +": " + args[i]);
         }
     }
-
+    
+    public static void ClosingStatement(string username)
+    {
+        Console.WriteLine($"I hope your new username, '{username}', brings you great joy! Feel free to come back anytime if you ever want a new one.");
+    }
+  
     private static string[] AskUserQuestions(string filename)
     {
         return ["bob"];
