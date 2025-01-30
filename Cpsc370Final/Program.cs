@@ -9,6 +9,7 @@ namespace Cpsc370Final
             string[] surveyAnswers = StartSurvey(5);
             string username = GenerateUsername(surveyAnswers);
             Console.WriteLine("Generated Username: " + username);
+            username = AskForAnotherUsername();
             ClosingStatement(username);
         }
 
@@ -35,7 +36,7 @@ namespace Cpsc370Final
             return combinedWords + randomNumber;
         }
 
-        public static void ClosingStatement(string username)
+        private static void ClosingStatement(string username)
         {
             Console.WriteLine(
                 $"I hope your new username, '{username}', brings you great joy! Feel free to come back anytime if you ever want a new one.");
@@ -94,30 +95,30 @@ namespace Cpsc370Final
             //TODO Print a random question from the list of questions
             //TODO Then remove that question from the available questions
         }
-    }
-
-    public static void AskForAnotherUsername()
-    {
-        string[] words = { "Cool", "Swift", "Epic", "Chill", "Hyper" };
-        while (true)
+        private static string AskForAnotherUsername(string username)
         {
-            Console.Write("Would you like to generate another username? (yes/no): ");
-            string response = Console.ReadLine()?.Trim().ToLower();
+            while (true)
+            {
+                Console.Write("Would you like to generate another username? (yes/no): ");
+                string response = Console.ReadLine()?.Trim().ToLower();
 
-            if (response == "yes")
-            {
-                string newUsername = GenerateUsername(words);
-                Console.WriteLine($"Your new username is: {newUsername}");
-            }
-            else if (response == "no")
-            {
-                ClosingStatement();
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Please enter 'yes' or 'no'.");
+                if (response == "yes")
+                {
+                    string newUsername = GenerateUsername(words);
+                    Console.WriteLine($"Your new username is: {newUsername}");
+                }
+                else if (response == "no")
+                {
+                    return newUsername;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter 'yes' or 'no'.");
+                }
             }
         }
     }
+
+    
 }
