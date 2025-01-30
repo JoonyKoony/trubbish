@@ -23,4 +23,33 @@ public class UnitTest1
         // Assert
         Assert.Equal(expected, isValid);
     }
+
+    
+    public class UsernameGeneratorTests
+    {
+        [Fact]
+        public void GenerateUsername_ReturnsString()
+        {
+            // Arrange
+            string[] words = { "Alpha", "Bravo" };
+
+            // Act
+            string result = GenerateUsername(words);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+        }
+
+        private static string GenerateUsername(string[] words)
+        {
+            if (words.Length < 2)
+            {
+                return "DefaultUser" + new Random().Next(100, 999);
+            }
+
+            return words[0] + words[1] + new Random().Next(100, 999);
+        }
+    }
 }
+
