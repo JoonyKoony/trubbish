@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace Cpsc370Final
@@ -8,12 +8,14 @@ namespace Cpsc370Final
         private static List<string> questionsList = new List<string>();
         static void Main(string[] args)
         {
-            string[] surveyAnswers = StartSurvey(5);
-            string username = GenerateUsername(surveyAnswers);
-            Console.WriteLine("Generated Username: " + username);
-            username = AskForAnotherUsername(username, surveyAnswers);
-            ClosingStatement(username);
+
+            string[] surveyAnswers = StartSurvey(10);
+            string selectedUsername = GenerateThreeUsernamesAndSelectOne(surveyAnswers);
+            Console.WriteLine($"You selected: {selectedUsername}");
+            selectedUsername = AskForAnotherUsername(selectedUsername, surveyAnswers);
+            ClosingStatement(selectedUsername);
         }
+
 
         private static string GenerateUsername(string[] words)
         {
@@ -38,6 +40,38 @@ namespace Cpsc370Final
             return combinedWords + randomNumber;
         }
 
+        private static string GenerateThreeUsernamesAndSelectOne(string[] words)
+        { //generating usernames
+            string username1 = GenerateUsername(words);
+            string username2 = GenerateUsername(words);
+            string username3 = GenerateUsername(words);
+            //displaying usernames
+            Console.WriteLine("Please select a username:");
+            Console.WriteLine($"1) {username1}");
+            Console.WriteLine($"2) {username2}");
+            Console.WriteLine($"3) {username3}");
+
+            int choice = GetValidChoice(1, 3);
+
+            return choice == 1 ? username1 : choice == 2 ? username2 : username3;
+        }
+
+        private static int GetValidChoice(int min, int max)
+        {
+            int choice;
+            while (true)
+            {
+                Console.Write($"Enter a number  ({min}-{max}): ");
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out choice) && choice >= min && choice <= max)
+                {
+                    return choice;
+                }
+
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
+        }
         private static void ClosingStatement(string username)
         {
             Console.WriteLine(
@@ -94,7 +128,6 @@ namespace Cpsc370Final
         private static void QueryAQuestion()
         {
             Console.WriteLine(GiveQuestion());
-      
         }
         private static string AskForAnotherUsername(string username, string[] words)
         {
