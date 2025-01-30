@@ -36,7 +36,7 @@ public class UnitTest1
             Console.SetOut(sw); // Redirect console output
 
             // Act
-            Program.ClosingStatement(username);
+            Cpsc370Final.Program.ClosingStatement(username);
             
             // Assert
             Assert.Equal(expectedMessage, sw.ToString());
@@ -58,7 +58,7 @@ public class UnitTest1
             Console.SetOut(sw); // Redirect output
 
             // Act
-            string finalUsername = Program.AskForAnotherUsername(initialUsername, words);
+            string finalUsername = Cpsc370Final.Program.AskForAnotherUsername(initialUsername, words);
 
             // Assert
             Assert.NotEqual(initialUsername, finalUsername); // Ensures a new username was generated
@@ -80,7 +80,7 @@ public class UnitTest1
             Console.SetOut(sw); // Redirect output
 
             // Act
-            string finalUsername = Program.AskForAnotherUsername(initialUsername, words);
+            string finalUsername = Cpsc370Final.Program.AskForAnotherUsername(initialUsername, words);
 
             // Assert
             Assert.Equal(initialUsername, finalUsername); // Ensures username remains unchanged
