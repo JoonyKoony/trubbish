@@ -94,8 +94,7 @@ namespace Cpsc370Final
         private static void QueryAQuestion()
         {
             Console.WriteLine(GiveQuestion());
-            //TODO Print a random question from the list of questions
-            //TODO Then remove that question from the available questions
+      
         }
         private static string AskForAnotherUsername(string username, string[] words)
         {
@@ -126,14 +125,14 @@ namespace Cpsc370Final
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "List_of_questions.txt");
             Random random = new Random();
 
-            // Ensure file exists before attempting to read
+  
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("File not found.");
                 return "No questions available.";
             }
 
-            // Read the file and populate the questions list
+
             using (StreamReader reader = new StreamReader(filePath))
             {
                 string line;
@@ -142,16 +141,14 @@ namespace Cpsc370Final
                     questionsList.Add(line);
                 }
             }
-
-            // Ensure the list is not empty before accessing an index
+            
             if (questionsList.Count == 0)
             {
                 return "No questions available.";
             }
-
-            // Ensure the random index is within the range 0-37
+            
             int maxIndex = Math.Min(37, questionsList.Count - 1);
-            int randomIndex = random.Next(0, maxIndex + 1); // Ensure inclusivity
+            int randomIndex = random.Next(0, maxIndex + 1); 
 
             return questionsList[randomIndex];
         
