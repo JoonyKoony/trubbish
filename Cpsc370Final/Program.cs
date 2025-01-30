@@ -8,15 +8,11 @@ namespace Cpsc370Final
         static void Main(string[] args)
         {
 
-            string[] surveyAnswers = StartSurvey(5);
+            string[] surveyAnswers = StartSurvey(10);
             string selectedUsername = GenerateThreeUsernamesAndSelectOne(surveyAnswers);
             Console.WriteLine($"You selected: {selectedUsername}");
-            string generatedUsername = GenerateUsername(surveyAnswers);
-            Console.WriteLine($"Generated Username (Seperate): {generatedUsername}");
+            selectedUsername = AskForAnotherUsername(selectedUsername, surveyAnswers);
             ClosingStatement(selectedUsername);
-            string username = GenerateUsername(surveyAnswers);
-            username = AskForAnotherUsername(username, surveyAnswers);
-            ClosingStatement(username);
         }
 
 
@@ -130,7 +126,9 @@ namespace Cpsc370Final
 
         private static void QueryAQuestion()
         {
-            Console.WriteLine(GiveQuestion());
+            Console.WriteLine("Name a word.");
+
+            //Console.WriteLine(GiveQuestion());
             //TODO Print a random question from the list of questions
             //TODO Then remove that question from the available questions
         }
