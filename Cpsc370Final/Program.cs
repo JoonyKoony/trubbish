@@ -95,4 +95,29 @@ namespace Cpsc370Final
             //TODO Then remove that question from the available questions
         }
     }
+
+    public static void AskForAnotherUsername()
+    {
+        string[] words = { "Cool", "Swift", "Epic", "Chill", "Hyper" };
+        while (true)
+        {
+            Console.Write("Would you like to generate another username? (yes/no): ");
+            string response = Console.ReadLine()?.Trim().ToLower();
+
+            if (response == "yes")
+            {
+                string newUsername = GenerateUsername(words);
+                Console.WriteLine($"Your new username is: {newUsername}");
+            }
+            else if (response == "no")
+            {
+                ClosingStatement();
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Please enter 'yes' or 'no'.");
+            }
+        }
+    }
 }
