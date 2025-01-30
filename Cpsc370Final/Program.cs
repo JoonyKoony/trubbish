@@ -180,8 +180,7 @@ namespace Cpsc370Final
                 return "No questions available.";
             }
             
-            int maxIndex = Math.Min(37, questionsList.Count - 1);
-            int randomIndex = random.Next(0, maxIndex + 1); 
+            int randomIndex = random.Next(questionsList.Count); 
 
             return questionsList[randomIndex];
         
