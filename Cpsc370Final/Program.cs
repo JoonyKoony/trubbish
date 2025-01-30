@@ -9,10 +9,17 @@ namespace Cpsc370Final
             string[] surveyAnswers = StartSurvey(5);
             string username = GenerateUsername(surveyAnswers);
             Console.WriteLine("Generated Username: " + username);
+            ClosingStatement(username);
         }
 
         private static string GenerateUsername(string[] words)
         {
+            if (words.Length < 2)
+            {
+                Console.WriteLine("Please provide at least two words.");
+                return "DefaultUser" + new Random().Next(100, 999);
+            }
+
             Random random = new Random();
             int index1 = random.Next(words.Length);
             int index2;
