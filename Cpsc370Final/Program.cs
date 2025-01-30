@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Cpsc370Final
 {
@@ -33,7 +34,6 @@ namespace Cpsc370Final
 
             return combinedWords + randomNumber;
         }
- test-conner2
 
         private static void ClosingStatement(string username)
         {
@@ -51,7 +51,6 @@ namespace Cpsc370Final
     {
         //TODO pull questions from file into an array
         return ["bob"];
- main
     }
 
     private static string[] StartSurvey(int numQuestionsToAsk)
@@ -98,5 +97,31 @@ namespace Cpsc370Final
     {
         //TODO Print a random question from the list of questions
         //TODO Then remove that question from the available questions
+    }
+    
+    public static string GiveQuestion()
+    {
+        List<string> questionsList = new List<string>();
+        string filePath = "questions.txt";
+        Random random = new Random();
+        
+        if (File.Exists(filePath))
+        {
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    questionsList.Add(line);
+                }
+            }
+        }else
+        {
+            Console.WriteLine("File not found");
+        }
+        
+        int randomIndex = random.Next(questionsList.Count);
+        return questionsList[randomIndex];
+        
     }
 }

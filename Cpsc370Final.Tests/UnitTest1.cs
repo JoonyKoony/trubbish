@@ -23,4 +23,23 @@ public class UnitTest1
         // Assert
         Assert.Equal(expected, isValid);
     }
+    
+    
+    [Fact]
+    public void GiveQuestion_ReturnsRandomQuestion()
+    {
+        // Arrange
+        string[] questions = { "What is your name?", "How old are you?", "Where do you live?" };
+        string filePath = "questions.txt";
+        File.WriteAllLines(filePath, questions);
+
+        // Act
+        string question = Program.GiveQuestion();
+
+        // Assert
+        Assert.Contains(question, questions);
+
+        // Clean up
+        File.Delete(filePath);
+    }
 }
