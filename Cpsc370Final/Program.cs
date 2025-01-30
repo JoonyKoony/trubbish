@@ -9,7 +9,7 @@ namespace Cpsc370Final
             string[] surveyAnswers = StartSurvey(5);
             string username = GenerateUsername(surveyAnswers);
             Console.WriteLine("Generated Username: " + username);
-            username = AskForAnotherUsername();
+            username = AskForAnotherUsername(username);
             ClosingStatement(username);
         }
 
@@ -97,6 +97,7 @@ namespace Cpsc370Final
         }
         private static string AskForAnotherUsername(string username)
         {
+            string newUsername = username;
             while (true)
             {
                 Console.Write("Would you like to generate another username? (yes/no): ");
@@ -104,13 +105,12 @@ namespace Cpsc370Final
 
                 if (response == "yes")
                 {
-                    string newUsername = GenerateUsername(words);
+                    newUsername = GenerateUsername(words);
                     Console.WriteLine($"Your new username is: {newUsername}");
                 }
                 else if (response == "no")
                 {
                     return newUsername;
-                    break;
                 }
                 else
                 {
