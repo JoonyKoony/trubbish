@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Cpsc370Final
 {
-    class Program
+    public class Program
     {
         private static List<string> questionsList = new List<string>();
         static void Main(string[] args)
