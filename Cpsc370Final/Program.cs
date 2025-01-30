@@ -9,7 +9,7 @@ namespace Cpsc370Final
             string[] surveyAnswers = StartSurvey(5);
             string username = GenerateUsername(surveyAnswers);
             Console.WriteLine("Generated Username: " + username);
-            username = AskForAnotherUsername(username);
+            username = AskForAnotherUsername(username, surveyAnswers);
             ClosingStatement(username);
         }
 
@@ -95,7 +95,7 @@ namespace Cpsc370Final
             //TODO Print a random question from the list of questions
             //TODO Then remove that question from the available questions
         }
-        private static string AskForAnotherUsername(string username)
+        private static string AskForAnotherUsername(string username, string[] words)
         {
             string newUsername = username;
             while (true)
