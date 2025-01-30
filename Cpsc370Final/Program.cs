@@ -5,6 +5,7 @@ namespace Cpsc370Final
 {
     class Program
     {
+        private static List<string> questionsList = new List<string>();
         static void Main(string[] args)
         {
 
@@ -160,26 +161,36 @@ namespace Cpsc370Final
         
         public static string GiveQuestion()
         {
-            List<string> questionsList = new List<string>();
-            string filePath = "List_of_questions.txt";
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "List_of_questions.txt");
             Random random = new Random();
-        
-            if (File.Exists(filePath))
+
+            // Ensure file exists before attempting to read
+            if (!File.Exists(filePath))
             {
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        questionsList.Add(line);
-                    }
-                }
-            }else
-            {
-                Console.WriteLine("File not found");
+                Console.WriteLine("File not found.");
+                return "No questions available.";
             }
-        
-            int randomIndex = random.Next(questionsList.Count);
+
+            // Read the file and populate the questions list
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    questionsList.Add(line);
+                }
+            }
+
+            // Ensure the list is not empty before accessing an index
+            if (questionsList.Count == 0)
+            {
+                return "No questions available.";
+            }
+
+            // Ensure the random index is within the range 0-37
+            int maxIndex = Math.Min(37, questionsList.Count - 1);
+            int randomIndex = random.Next(0, maxIndex + 1); // Ensure inclusivity
+
             return questionsList[randomIndex];
         
         }
