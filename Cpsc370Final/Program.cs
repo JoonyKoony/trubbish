@@ -127,11 +127,7 @@ namespace Cpsc370Final
 
         private static void QueryAQuestion()
         {
-            Console.WriteLine("Name a word.");
-
-            //Console.WriteLine(GiveQuestion());
-            //TODO Print a random question from the list of questions
-            //TODO Then remove that question from the available questions
+            Console.WriteLine(GiveQuestion());
         }
         private static string AskForAnotherUsername(string username, string[] words)
         {
