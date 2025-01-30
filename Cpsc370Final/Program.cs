@@ -39,13 +39,49 @@ namespace Cpsc370Final
         return ["bob"];
     }
 
-    private static void StartSurvey(int numQuestionsToAsk)
+    private static string[] StartSurvey(int numQuestionsToAsk)
     {
+        Console.WriteLine("The survey has started!");
         
+        string[] answers = new string[numQuestionsToAsk];
+
+        for (int i = 0; i < numQuestionsToAsk; i++)
+        {
+            Console.WriteLine($"Question {i + 1}:");
+            answers[i] = AskQuestion();
+        }
+
+        Console.WriteLine("\nThe survey has ended. Thank you for your participation!");
+
+        return answers;
+
     }
 
     private static string AskQuestion()
     {
-        return "helloworld";
+        string unverifiedAnswer;
+        QueryAQuestion();
+        do
+        {
+            Console.Write("Enter your response (1-10 characters, no spaces): ");
+            unverifiedAnswer = Console.ReadLine();
+
+            if (unverifiedAnswer.Length < 1 || unverifiedAnswer.Length > 10 || unverifiedAnswer.Contains(" "))
+            {
+                Console.WriteLine("Invalid input. Your response must be between 1-10 characters and cannot contain spaces.");
+            }
+            else
+            {
+                break;
+            }
+        } while (true);
+
+        return unverifiedAnswer;
+    }
+
+    private static void QueryAQuestion()
+    {
+        //TODO Print a random question from the list of questions
+        //TODO Then remove that question from the available questions
     }
 }
