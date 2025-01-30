@@ -47,9 +47,9 @@ namespace Cpsc370Final
             return ["bob"];
         }
 
-        private static string[] StartSurvey(int numQuestionsToAsk)
+        public static string[] StartSurvey(int numQuestionsToAsk)
         {
-            Console.WriteLine("The survey has started!");
+            Console.WriteLine("The survey has started with " + numQuestionsToAsk + " questions.");
 
             string[] answers = new string[numQuestionsToAsk];
 
@@ -67,25 +67,25 @@ namespace Cpsc370Final
 
         private static string AskQuestion()
         {
-            string unverifiedAnswer;
             QueryAQuestion();
+            string userInput;
             do
             {
                 Console.Write("Enter your response (1-10 characters, no spaces): ");
-                unverifiedAnswer = Console.ReadLine();
+                userInput = Console.ReadLine();
 
-                if (unverifiedAnswer.Length < 1 || unverifiedAnswer.Length > 10 || unverifiedAnswer.Contains(" "))
+                if (!IsValidResponse(userInput))
                 {
-                    Console.WriteLine(
-                        "Invalid input. Your response must be between 1-10 characters and cannot contain spaces.");
+                    Console.WriteLine("Invalid input. Your response must be between 1-10 characters and cannot contain spaces.");
                 }
-                else
-                {
-                    break;
-                }
-            } while (true);
+            } while (!IsValidResponse(userInput));
 
-            return unverifiedAnswer;
+            return userInput;
+        }
+
+        private static bool IsValidResponse(string response)
+        {
+            return !string.IsNullOrEmpty(response) && response.Length >= 1 && response.Length <= 10 && !response.Contains(" ");
         }
 
         private static void QueryAQuestion()
