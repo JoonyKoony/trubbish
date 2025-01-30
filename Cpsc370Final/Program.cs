@@ -35,6 +35,17 @@ namespace Cpsc370Final
   
     private static string[] AskUserQuestions(string filename)
     {
+        //TODO pull questions from file into an array
         return ["bob"];
+    }
+
+    private static void StartSurvey(int numQuestionsToAsk)
+    {
+        
+    }
+
+    private static string AskQuestion()
+    {
+        return "helloworld";
     }
 }
