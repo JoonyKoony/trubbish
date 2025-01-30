@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Cpsc370Final
 {
@@ -91,7 +92,7 @@ namespace Cpsc370Final
 
         private static void QueryAQuestion()
         {
-            Console.WriteLine("What is your name?");
+            Console.WriteLine(GiveQuestion());
             //TODO Print a random question from the list of questions
             //TODO Then remove that question from the available questions
         }
@@ -117,6 +118,32 @@ namespace Cpsc370Final
                     Console.WriteLine("Please enter 'yes' or 'no'.");
                 }
             }
+        }
+        
+        public static string GiveQuestion()
+        {
+            List<string> questionsList = new List<string>();
+            string filePath = "List_of_questions.txt";
+            Random random = new Random();
+        
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        questionsList.Add(line);
+                    }
+                }
+            }else
+            {
+                Console.WriteLine("File not found");
+            }
+        
+            int randomIndex = random.Next(questionsList.Count);
+            return questionsList[randomIndex];
+        
         }
     }
 
