@@ -33,10 +33,70 @@ namespace Cpsc370Final
 
             return combinedWords + randomNumber;
         }
+ test-conner2
 
         private static void ClosingStatement(string username)
         {
             Console.WriteLine($"I hope your new username, '{username}', brings you great joy! Feel free to come back anytime if you ever want a new one.");
         }
+
+    }
+    
+    public static void ClosingStatement(string username)
+    {
+        Console.WriteLine($"I hope your new username, '{username}', brings you great joy! Feel free to come back anytime if you ever want a new one.");
+    }
+  
+    private static string[] AskUserQuestions(string filename)
+    {
+        //TODO pull questions from file into an array
+        return ["bob"];
+ main
+    }
+
+    private static string[] StartSurvey(int numQuestionsToAsk)
+    {
+        Console.WriteLine("The survey has started!");
+        
+        string[] answers = new string[numQuestionsToAsk];
+
+        for (int i = 0; i < numQuestionsToAsk; i++)
+        {
+            Console.WriteLine($"Question {i + 1}:");
+            answers[i] = AskQuestion();
+        }
+
+        Console.WriteLine("\nThe survey has ended. Thank you for your participation!");
+
+        return answers;
+
+    }
+
+    private static string AskQuestion()
+    {
+        string unverifiedAnswer;
+        QueryAQuestion();
+        do
+        {
+            Console.Write("Enter your response (1-10 characters, no spaces): ");
+            unverifiedAnswer = Console.ReadLine();
+
+            if (unverifiedAnswer.Length < 1 || unverifiedAnswer.Length > 10 || unverifiedAnswer.Contains(" "))
+            {
+                Console.WriteLine("Invalid input. Your response must be between 1-10 characters and cannot contain spaces.");
+            }
+            else
+            {
+                break;
+            }
+        } while (true);
+
+        return unverifiedAnswer;
+    }
+
+    private static void QueryAQuestion()
+    {
+        //TODO Print a random question from the list of questions
+        //TODO Then remove that question from the available questions
     }
 }
