@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Cpsc370Final
 {
@@ -13,7 +14,9 @@ namespace Cpsc370Final
             string generatedUsername = GenerateUsername(surveyAnswers);
             Console.WriteLine($"Generated Username (Seperate): {generatedUsername}");
             ClosingStatement(selectedUsername);
-
+            string username = GenerateUsername(surveyAnswers);
+            username = AskForAnotherUsername(username, surveyAnswers);
+            ClosingStatement(username);
         }
 
 
@@ -72,8 +75,7 @@ namespace Cpsc370Final
                 Console.WriteLine("Invalid input. Please enter a valid number.");
             }
         }
-
-        public static void ClosingStatement(string username)
+        private static void ClosingStatement(string username)
         {
             Console.WriteLine(
                 $"I hope your new username, '{username}', brings you great joy! Feel free to come back anytime if you ever want a new one.");
@@ -128,9 +130,60 @@ namespace Cpsc370Final
 
         private static void QueryAQuestion()
         {
-            Console.WriteLine("What is your name?");
+            Console.WriteLine(GiveQuestion());
             //TODO Print a random question from the list of questions
             //TODO Then remove that question from the available questions
         }
+        private static string AskForAnotherUsername(string username, string[] words)
+        {
+            string newUsername = username;
+            while (true)
+            {
+                Console.Write("Would you like to generate another username? (yes/no): ");
+                string response = Console.ReadLine()?.Trim().ToLower();
+
+                if (response == "yes")
+                {
+                    newUsername = GenerateUsername(words);
+                    Console.WriteLine($"Your new username is: {newUsername}");
+                }
+                else if (response == "no")
+                {
+                    return newUsername;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter 'yes' or 'no'.");
+                }
+            }
+        }
+        
+        public static string GiveQuestion()
+        {
+            List<string> questionsList = new List<string>();
+            string filePath = "List_of_questions.txt";
+            Random random = new Random();
+        
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        questionsList.Add(line);
+                    }
+                }
+            }else
+            {
+                Console.WriteLine("File not found");
+            }
+        
+            int randomIndex = random.Next(questionsList.Count);
+            return questionsList[randomIndex];
+        
+        }
     }
+
+    
 }
