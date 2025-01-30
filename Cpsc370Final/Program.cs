@@ -72,7 +72,7 @@ namespace Cpsc370Final
                 Console.WriteLine("Invalid input. Please enter a valid number.");
             }
         }
-        private static void ClosingStatement(string username)
+        public static void ClosingStatement(string username)
         {
             Console.WriteLine(
                 $"I hope your new username, '{username}', brings you great joy! Feel free to come back anytime if you ever want a new one.");
@@ -129,7 +129,7 @@ namespace Cpsc370Final
         {
             Console.WriteLine(GiveQuestion());
         }
-        private static string AskForAnotherUsername(string username, string[] words)
+        public static string AskForAnotherUsername(string username, string[] words)
         {
             string newUsername = username;
             while (true)

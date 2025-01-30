@@ -23,7 +23,70 @@ public class UnitTest1
         // Assert
         Assert.Equal(expected, isValid);
     }
+    
+    [Fact]
+    public void ClosingStatement_PrintsExpectedMessage()
+    {
+        // Arrange
+        string username = "EpicGamer42";
+        string expectedMessage = $"I hope your new username, '{username}', brings you great joy! Feel free to come back anytime if you ever want a new one.\n";
 
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetOut(sw); // Redirect console output
+
+            // Act
+            Program.ClosingStatement(username);
+            
+            // Assert
+            Assert.Equal(expectedMessage, sw.ToString());
+        }
+    }
+
+    [Fact]
+    public void AskForAnotherUsername_GeneratesNewUsername_WhenUserSaysYesThenNo()
+    {
+        // Arrange
+        string[] words = { "Cool", "Swift", "Epic" };
+        string initialUsername = "Cool123";
+        string userInput = "yes\nno\n"; // Simulating user typing "yes" then "no"
+        
+        using (StringReader sr = new StringReader(userInput))
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetIn(sr);  // Redirect input
+            Console.SetOut(sw); // Redirect output
+
+            // Act
+            string finalUsername = Program.AskForAnotherUsername(initialUsername, words);
+
+            // Assert
+            Assert.NotEqual(initialUsername, finalUsername); // Ensures a new username was generated
+        }
+    }
+
+    [Fact]
+    public void AskForAnotherUsername_ReturnsSameUsername_WhenUserSaysNoImmediately()
+    {
+        // Arrange
+        string[] words = { "Cool", "Swift", "Epic" };
+        string initialUsername = "Cool123";
+        string userInput = "no\n"; // Simulating user typing "no"
+
+        using (StringReader sr = new StringReader(userInput))
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetIn(sr);  // Redirect input
+            Console.SetOut(sw); // Redirect output
+
+            // Act
+            string finalUsername = Program.AskForAnotherUsername(initialUsername, words);
+
+            // Assert
+            Assert.Equal(initialUsername, finalUsername); // Ensures username remains unchanged
+        }
+    }
+    
     
     public class UsernameGeneratorTests
     {
