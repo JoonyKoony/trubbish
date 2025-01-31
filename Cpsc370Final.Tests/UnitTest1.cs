@@ -114,5 +114,91 @@ public class UnitTest1
             return words[0] + words[1] + new Random().Next(100, 999);
         }
     }
+    
+    public class GiveQuestionTests
+    {
+        private readonly string testFilePath = Path.Combine(Directory.GetCurrentDirectory(), "List_of_questions.txt");
+
+        public GiveQuestionTests()
+        {
+            // Ensure a clean test environment before each test
+            if (File.Exists(testFilePath))
+            {
+                File.Delete(testFilePath);
+            }
+
+            // Clear the static list of questions before each test
+            typeof(Program)
+                .GetField("questionsList", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+                ?.SetValue(null, new List<string>());
+        }
+
+        [Fact]
+        public void GiveQuestion_ShouldReturnNoQuestions_WhenFileDoesNotExist()
+        {
+            // Ensure the file does not exist
+            if (File.Exists(testFilePath))
+                File.Delete(testFilePath);
+
+            // Act
+            string result = Program.GiveQuestion();
+
+            // Assert
+            Assert.Equal("No questions available.", result);
+        }
+
+        [Fact]
+        public void GiveQuestion_ShouldReturnNoQuestions_WhenFileIsEmpty()
+        {
+            // Arrange
+            File.WriteAllText(testFilePath, "");
+
+            // Act
+            string result = Program.GiveQuestion();
+
+            // Assert
+            Assert.Equal("No questions available.", result);
+        }
+
+        [Theory]
+        [InlineData("What is your name?\nHow old are you?\nWhere do you live?")]
+        [InlineData("Who won the world cup?\nWhat is AI?\nExplain gravity.")]
+        public void GiveQuestion_ShouldReturnAQuestion_WhenFileHasQuestions(string fileContent)
+        {
+            // Arrange
+            File.WriteAllText(testFilePath, fileContent);
+
+            // Act
+            string result = Program.GiveQuestion();
+
+            // Assert
+            Assert.Contains(result, fileContent.Split("\n")); // Ensures result is one of the questions
+        }
+
+        [Fact]
+        public void GiveQuestion_ShouldNotDuplicateQuestions_WhenCalledMultipleTimes()
+        {
+            // Arrange
+            string[] questions = { "Q1", "Q2", "Q3" };
+            File.WriteAllText(testFilePath, string.Join("\n", questions));
+
+            // Act
+            string result1 = Program.GiveQuestion();
+            string result2 = Program.GiveQuestion();
+            string result3 = Program.GiveQuestion();
+
+            // Assert: Ensure all results are valid questions
+            Assert.Contains(result1, questions);
+            Assert.Contains(result2, questions);
+            Assert.Contains(result3, questions);
+
+            // Fail if any of the returned questions are duplicates
+            bool allUnique = (result1 != result2) && (result2 != result3) && (result1 != result3);
+            Assert.True(
+                allUnique,
+                "The function returned duplicate questions."
+            );
+        }
+    }
 }
 
